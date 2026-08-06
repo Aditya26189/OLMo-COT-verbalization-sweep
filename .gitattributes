@@ -1,0 +1,4 @@
+# Shell scripts must be LF or bash on Linux fails with "invalid option name".
+*.sh      text eol=lf
+*.py      text eol=lf
+*.ipynb   text eol=lf
