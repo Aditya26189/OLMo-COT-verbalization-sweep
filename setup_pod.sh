@@ -7,7 +7,7 @@
 # Expects .env to already be present in /workspace/rlvr-cot (scp it over first).
 set -euo pipefail
 
-REPO_URL="${REPO_URL:-https://github.com/Aditya26189/rlvr-cot}"
+REPO_URL="${REPO_URL:-https://github.com/Aditya26189/OLMo-COT-verbalization-sweep}"
 WORKDIR="${WORKDIR:-/workspace/rlvr-cot}"
 
 echo "=============================================="
