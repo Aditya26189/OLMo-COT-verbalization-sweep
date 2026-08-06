@@ -1,29 +1,10 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.eggs/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Environment
-.env
-*.env
-.env*
-*.env.*
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# IDE
-.vscode/
-.idea/
-
-# Large model files
-*.bin
 *.safetensors
+*.bin
 *.pt
 *.ckpt
+__pycache__/
+.ipynb_checkpoints/
+.env
+*.env
+hf_cache/
+InstrumentalEval/
