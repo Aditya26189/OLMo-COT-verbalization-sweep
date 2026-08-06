@@ -1,0 +1,10 @@
+{
+  "attempts": 381,
+  "calls": 381,
+  "tokens_in": 449119,
+  "tokens_out": 13169,
+  "spend_usd": 1.2545,
+  "judge_model": "gpt-4o",
+  "judge_mode": "prod",
+  "updated": "2026-08-06T23:10:18"
+}
