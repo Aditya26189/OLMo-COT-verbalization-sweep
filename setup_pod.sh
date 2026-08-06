@@ -104,22 +104,24 @@ echo "=============================================="
 echo " READY"
 echo "=============================================="
 cat <<'NEXT'
-Next, in a tmux session so a disconnect cannot kill the run:
+==============================================
+ RUN IT — one command each, in order
+==============================================
 
-  tmux new -s sweep
+  tmux new -s sweep          # so a disconnect cannot kill the run
 
-  # 1. FREE dev smoke test — validates the whole pipeline at zero cost
-  #    (JUDGE_MODE defaults to "dev")
-  jupyter nbconvert --to notebook --execute --inplace \
-      --ExecutePreprocessor.timeout=3600 rlvr_cot_phase0_fixed.ipynb
+  # 1. FREE dev smoke test. Validates the whole pipeline at zero cost.
+  python run_study.py smoke
 
-  # ...or run cells interactively in Jupyter. Either way: dev first, then prod.
+  # 2. Paid smoke test — a few cents. HARD STOP if this fails.
+  JUDGE_MODE=prod python run_study.py smoke
 
-  # 2. When the dev smoke test passes, flip JUDGE_MODE = "prod" in Cell 2
-  #    and re-run Cell 6c only. Costs cents. Treat any failure as a HARD STOP.
+  # 3. Phase 1 sweep (~3-4 h). Pod stops ITSELF on exit — note ';' not '&&'.
+  JUDGE_MODE=prod python run_study.py phase1 2>&1 | tee phase1.log; runpodctl stop pod $RUNPOD_POD_ID
 
-  # 3. Phase 1, with the pod stopping itself on exit (note ';' not '&&'):
-  python run_phase1.py 2>&1 | tee phase1_run.log; runpodctl stop pod $RUNPOD_POD_ID
+  # 4. Analysis, then Phase 2 + final results
+  JUDGE_MODE=prod python run_study.py analysis 2>&1 | tee analysis.log
+  JUDGE_MODE=prod python run_study.py phase2   2>&1 | tee phase2.log; runpodctl stop pod $RUNPOD_POD_ID
 
-Detach with Ctrl+B then D. Reattach with: tmux attach -t sweep
+Detach: Ctrl+B then D.   Reattach: tmux attach -t sweep
 NEXT
