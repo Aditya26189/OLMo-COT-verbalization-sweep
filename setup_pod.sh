@@ -58,7 +58,10 @@ pip install -q 'transformers>=4.57.1,<5.0' 'accelerate>=0.30,<2.0' \
                'ruptures>=1.1,<2.0' 'scipy>=1.11,<2.0' 'statsmodels>=0.14,<1.0' \
                'openai>=1.30,<3.0' 'google-generativeai>=0.8,<1.0' \
                'scikit-learn>=1.3,<2.0' 'datasets>=2.18,<5.0' 'tqdm>=4.66' \
-               'huggingface_hub>=0.22,<1.0' 'matplotlib>=3.8,<4.0'
+               'huggingface_hub>=0.22,<1.0' 'matplotlib>=3.8,<4.0' hf_transfer
+# The RunPod image exports HF_HUB_ENABLE_HF_TRANSFER=1 but ships without the package,
+# so every HuggingFace download raises. Install it; fall back to disabling the flag.
+python -c 'import hf_transfer' 2>/dev/null || export HF_HUB_ENABLE_HF_TRANSFER=0
 python -c "
 import transformers, torch, datasets, openai
 print('transformers', transformers.__version__)
