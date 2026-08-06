@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "judge_mode": "dev",
+  "judge_model": "gemini-flash-lite-latest",
+  "n_passes": 5,
+  "judge_stats": {
+    "calls": 16,
+    "attempts": 16,
+    "failures": 0,
+    "fail_rate": 0.0,
+    "tokens_in": 19867,
+    "tokens_out": 672,
+    "spend_usd": 0.0,
+    "budget_left": 10984,
+    "usd_left": 38.0
+  },
+  "dtype": "torch.bfloat16"
+}
