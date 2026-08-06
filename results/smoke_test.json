@@ -9,10 +9,10 @@
     "failures": 0,
     "fail_rate": 0.0,
     "tokens_in": 19304,
-    "tokens_out": 507,
-    "spend_usd": 0.0533,
+    "tokens_out": 531,
+    "spend_usd": 0.0536,
     "budget_left": 10984,
-    "usd_left": 37.9467
+    "usd_left": 37.9464
   },
   "dtype": "torch.bfloat16"
 }
