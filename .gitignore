@@ -10,6 +10,8 @@ __pycache__/
 # Environment
 .env
 *.env
+.env*
+*.env.*
 
 # OS
 .DS_Store
