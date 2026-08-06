@@ -16,7 +16,7 @@ for c in nb['cells']:
 
 WANT = {'_parse_decision', '_parse_judge_json', 'normalize_answer', 'extract_prediction',
         'extract_gold', '_extract_boxed', 'score_math', 'map_category', '_step_number',
-        'clean_math_problem', '_majority', '_extract_cat_score', 'cliffs_delta',
+        'clean_math_problem', '_majority', '_extract_cat_score', 'cliffs_delta', '_strip_units',
         '_safe_name', '_UNIT_RE', '_STEP_RE', '_math_stats'}
 
 ns = {'re': re, 'json': json, 'np': __import__('numpy')}
@@ -75,14 +75,20 @@ check('norm 1.50',     na('1.50'), '1.5')
 check('norm 2.0',      na('2.0'), '2')
 check('norm dfrac',    na('\\dfrac{1}{2}'), na('\\frac{1}{2}'))
 check('norm leftright', na('\\left(3,4\\right)'), na('(3,4)'))
-check('norm text',     na('12\\text{ cm}'), '12cm')
+check('norm text',     na('12\\text{ cm}'), '12')   # unit dropped, not concatenated
 check('norm comma',    na('1,000'), '1000')
 check('norm dollar',   na('$42$'), '42')
 check('norm degrees',  na('90^\\circ'), '90')
 check('norm traildot', na('42.'), '42')
 check('norm prefix',   na('The answer is 42'), '42')
+# Units in the gold answer must not defeat a correct bare-number prediction.
+# Observed live on the pod: gold '312 \text{ dollars}' vs pred '312' scored 0.
+check('norm strips unit dollars',  na(r'312 \text{ dollars}'), na('312'))
+check('norm strips unit cm',       na(r'42\text{ cm}'), na('42'))
+check('norm keeps textual answer', na(r'\text{odd}'), 'odd')
 
 sm_ = g['score_math']
+check('score with gold units',     sm_('Answer: 312', r'\boxed{312 \text{ dollars}}'), 1)
 check('score match',     sm_('reasoning\nAnswer: 42', 'so \\boxed{42}'), 1)
 check('score mismatch',  sm_('Answer: 41', '\\boxed{42}'), 0)
 check('score frac',      sm_('Answer: \\dfrac{1}{2}', '\\boxed{\\frac{1}{2}}'), 1)
