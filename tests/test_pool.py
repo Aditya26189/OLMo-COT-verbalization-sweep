@@ -4,7 +4,7 @@ import os
 import ast, io, json, os, random, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-NB = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rlvr_cot_phase0_fixed.ipynb')
+NB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'rlvr_cot_phase0_fixed.ipynb')
 nb = json.load(io.open(NB, encoding='utf-8'))
 cells = [''.join(c['source']) for c in nb['cells'] if c['cell_type'] == 'code']
 CELL = next(s for s in cells if 'def score_instrumental_batch' in s)

@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 """Read the actual traces behind the headline numbers. 100% verbalization on n=7 needs eyeballing."""
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+P2 = os.path.join(ROOT, 'results', 'phase2')
+def _vpath(n): return os.path.join(P2, 'checkpoint_step_%s_verbalization.json' % n)
+def _tpath(n): return os.path.join(P2, 'checkpoint_step_%s_traces.json' % n)
+
 import json, re, textwrap
 
 CK = ['step_1300', 'step_1400', 'step_1500', 'step_1600', 'step_1700']
@@ -13,9 +19,9 @@ def cat_score(res, cat):
 traces, verbs = {}, {}
 for ck in CK:
     n = ck.split('_')[1]
-    for t in json.load(open('t%s.json' % n, encoding='utf-8')):
+    for t in json.load(open(_tpath(n), encoding='utf-8')):
         traces[t['trace_id']] = t
-    for v in json.load(open('v%s.json' % n, encoding='utf-8')):
+    for v in json.load(open(_vpath(n), encoding='utf-8')):
         verbs[v['trace_id']] = v
 
 # The cells that drive the headline: behaviour=1 AND verbalized=1

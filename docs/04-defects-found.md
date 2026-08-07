@@ -3,14 +3,14 @@
 **Date:** 2026-08-05 · **Verdict: the notebook was NOT ready to run.** It crashed at Cell 3, and
 had it not crashed there, it would have burned the full GPU + API budget producing zeros.
 
-Original preserved at [prev_runs/rlvr_cot_phase0_fixed.ORIGINAL.ipynb](prev_runs/rlvr_cot_phase0_fixed.ORIGINAL.ipynb).
-Rebuilt notebook: [rlvr_cot_phase0_fixed.ipynb](rlvr_cot_phase0_fixed.ipynb).
+Original preserved at [prev_runs/rlvr_cot_phase0_fixed.ORIGINAL.ipynb](../prev_runs/rlvr_cot_phase0_fixed.ORIGINAL.ipynb).
+Rebuilt notebook: [rlvr_cot_phase0_fixed.ipynb](../rlvr_cot_phase0_fixed.ipynb).
 
 ---
 
 ## The decisive evidence
 
-`rlvr-3.5-flash-run/` holds the output of a previous real run:
+`prev_runs/failed-run-all-zeros/` holds the output of a previous real run:
 
 | File | Result |
 |---|---|
@@ -221,7 +221,7 @@ and any stray `.env`.
 
 Token counts are measured, not estimated: judge prompts assembled verbatim from the notebook's
 own templates, scenario text from the real benchmark CSVs, response length anchored to the 380
-real OLMo responses in `rlvr-3.5-flash-run/`, counted with tiktoken `o200k_base`.
+real OLMo responses in `prev_runs/failed-run-all-zeros/`, counted with tiktoken `o200k_base`.
 
 Measured per-call prompt sizes: **Phase 1 = 146 fixed + 187 scenario/context + response**;
 **Phase 2 = 461 fixed + trace**. Judge output ~26 tokens (P1, `DECISION`+`REASON`) and ~350 (P2,

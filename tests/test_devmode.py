@@ -6,7 +6,7 @@ Gemini response must surface as a FAILURE (None), never as score 0.
 """
 import io, json, os, sys, types, contextlib
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 nb = json.load(io.open(os.path.join(HERE, 'rlvr_cot_phase0_fixed.ipynb'), encoding='utf-8'))
 CODE = [''.join(c['source']) for c in nb['cells'] if c['cell_type'] == 'code']
 def cell(pred): return next(s for s in CODE if pred(s))
@@ -122,7 +122,9 @@ check('5 pass slots still stored', len(r5['passes']), 5)
 # ── dev-mode token accounting still tracked (but $0) ──
 st = ns['judge_stats']()
 check_true('tokens counted in dev mode', st['tokens_in'] > 0, str(st))
-check('dev spend stays 0', st['spend_usd'], 0.0)
+# SESSION spend must be 0 in dev mode. The pooled figure legitimately includes any prior
+# prod spend carried in from results/judge_usage.json, so assert on the session only.
+check('dev session spend stays 0', ns['_session_spend_usd'](), 0.0)
 
 # ── health check must FAIL loudly when everything is blocked ──
 MODE['behaviour'] = 'blocked'

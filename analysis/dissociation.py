@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 """Behaviour-vs-verbalization dissociation on the real Phase 2 results."""
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+P2 = os.path.join(ROOT, 'results', 'phase2')
+def _vpath(n): return os.path.join(P2, 'checkpoint_step_%s_verbalization.json' % n)
+def _tpath(n): return os.path.join(P2, 'checkpoint_step_%s_traces.json' % n)
+
 import json, os
 import numpy as np
 from scipy.stats import fisher_exact
@@ -21,7 +27,7 @@ print('VERBALIZATION GIVEN BEHAVIOUR'.center(96))
 print('=' * 96)
 print(f'{"checkpoint":>11} {"category":<26} {"behav=1":>16} {"behav=0":>16} {"fisher p":>10} {"OR":>7}')
 for ck in CK:
-    v = json.load(open('v%s.json' % ck.split('_')[1], encoding='utf-8'))
+    v = json.load(open(_vpath(ck.split('_')[1]), encoding='utf-8'))
     nfail += sum(1 for r in v if r.get('n_failed', 0) == 5)
     for cat in CATS:
         rs = [(r, score(r.get('judge_result'), cat)) for r in v if r.get('category') == cat]

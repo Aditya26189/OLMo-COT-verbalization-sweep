@@ -3,7 +3,7 @@ import os
 """Unit tests for the notebook's pure-logic functions, extracted straight from the .ipynb."""
 import ast, json, io, re, sys
 
-NB = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rlvr_cot_phase0_fixed.ipynb')
+NB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'rlvr_cot_phase0_fixed.ipynb')
 nb = json.load(io.open(NB, encoding='utf-8'))
 src_all = []
 for c in nb['cells']:

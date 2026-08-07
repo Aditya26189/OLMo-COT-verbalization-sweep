@@ -99,7 +99,7 @@ echo " 6/6  Offline test suite (no GPU, no API calls)"
 echo "=============================================="
 for t in test_logic test_analysis test_budget test_pool; do
   printf '%-16s ' "$t"
-  if python "$t.py" >/dev/null 2>&1; then echo PASS; else echo FAIL; fi
+  if python "tests/$t.py" >/dev/null 2>&1; then echo PASS; else echo FAIL; fi
 done
 
 echo

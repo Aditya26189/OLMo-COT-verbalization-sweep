@@ -8,3 +8,5 @@ __pycache__/
 *.env
 hf_cache/
 InstrumentalEval/
+__pycache__/
+*.pyc
