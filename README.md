@@ -45,6 +45,7 @@ Full analysis, confounds, and confidence levels: **[docs/02-results.md](docs/02-
 | **[03-cost-control.md](docs/03-cost-control.md)** | How ~$48 was spent without waste — **reusable for any funded experiment** |
 | **[04-defects-found.md](docs/04-defects-found.md)** | 25+ defects found, including three that silently destroyed a previous run |
 | **[05-reproduce.md](docs/05-reproduce.md)** | Verify the analysis (free) or re-run the sweep (~$48) |
+| **[06-future-work.md](docs/06-future-work.md)** | Costed research agenda — the OLMo 3 family is a natural experiment |
 
 ---
 
